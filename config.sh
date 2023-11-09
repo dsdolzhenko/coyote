@@ -7,4 +7,6 @@ export COYOTE_TARGET=${COYOTE_ARCH}-elf
 COYOTE_TOOLCHAIN_PREFIX="$(realpath "${BASH_SOURCE%/*}")"/toolchain/root
 export COYOTE_TOOLCHAIN_PREFIX
 
+export COYOTE_ISO_IMAGE=coyote.iso
+
 export PATH=${COYOTE_TOOLCHAIN_PREFIX}/bin:${PATH}
