@@ -15,6 +15,12 @@ multiboot_header:
 	.short 8 /* Size */
 multiboot_header_end:
 
+	.section .bss
+	/* Allocate memory for the stack. */
+	.align 16 /* System V API requires stack to be 16-bytes aligned on x86 systems */
+stack_bottom:
+	.skip   16384 /* 16 KiB */
+stack_top:
 
 	.section .text
 	.code32
@@ -23,6 +29,10 @@ multiboot_header_end:
 	.global boot
 	.type boot, @function
 boot:
+	/* Set up stack for the kernel.
+	 * On x86 systems, stack grows downards, hence $stack_top is used. */
+	movl $stack_top, %esp
+
 	/* Print 'OK' to the screen */
 	movl $0x2f4b2f4f, 0xb8000
 
